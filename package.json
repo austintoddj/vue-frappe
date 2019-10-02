@@ -1,0 +1,13 @@
+{
+  "name": "vue-frappe",
+  "version": "0.1.0",
+  "description": "Vue component wrapper for Frappe Charts",
+  "main": "src/index.js",
+  "repository": "https://www.github.com/austintoddj/vue-frappe",
+  "author": "Todd Austin <austin.todd.j@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "frappe-charts": "^1.3.0"
+  }
+}
