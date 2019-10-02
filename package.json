@@ -1,12 +1,24 @@
 {
   "name": "vue-frappe",
   "version": "0.1.0",
+  "keywords": ["vue", "package", "charts"],
+  "homepage": "https://github.com/austintoddj/vue-frappe",
+  "bugs": {
+    "url": "https://github.com/austintoddj/vue-frappe/issues"
+  },
   "description": "Vue component wrapper for Frappe Charts",
-  "main": "src/index.js",
-  "repository": "https://www.github.com/austintoddj/vue-frappe",
-  "author": "Todd Austin <austin.todd.j@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/austintoddj/vue-frappe"
+  },
+  "author": {
+    "name": "Todd Austin",
+    "email": "austin.todd.j@gmail.com",
+    "url": "https://toddaustin.me"
+  },
   "license": "MIT",
   "private": false,
+  "main": "src/index.js",
   "dependencies": {
     "frappe-charts": "^1.3.0"
   }
