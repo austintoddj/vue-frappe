@@ -1,7 +1,11 @@
 {
   "name": "vue-frappe",
-  "version": "0.1.0",
-  "keywords": ["vue", "package", "charts"],
+  "version": "0.1.2",
+  "keywords": [
+    "vue",
+    "package",
+    "charts"
+  ],
   "homepage": "https://github.com/austintoddj/vue-frappe",
   "bugs": {
     "url": "https://github.com/austintoddj/vue-frappe/issues"

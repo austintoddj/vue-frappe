@@ -1,23 +1,19 @@
-name: "publish"
+name: "npm publish"
 
 on:
   release:
-    types: [published]
+    types: [created]
 
 jobs:
   build:
-    name: "publish"
-
+    name: "npm publish"
     runs-on: ubuntu-latest
-
     steps:
-      - name: "checkout"
+      - name: "Checking out repository..."
         uses: actions/checkout@master
-
-      - name: "publish"
+      - name: "Publishing to npm..."
         uses: actions/npm@master
         with:
           args: publish
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
