@@ -1,8 +1,10 @@
-## Status
+## vue-frappe
+
+[![npm version](https://badge.fury.io/js/vue-frappe.svg)](https://badge.fury.io/js/vue-frappe) [![GitHub license](https://img.shields.io/github/license/austintoddj/vue-frappe)](https://github.com/austintoddj/vue-frappe/blob/master/license)
 
 ## License
 
-This package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This package is open-sourced software licensed under the [MIT license](https://github.com/austintoddj/vue-frappe/blob/master/license).
 
 ## Credits
 
