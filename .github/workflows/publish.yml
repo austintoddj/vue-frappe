@@ -1,17 +1,15 @@
-name: "npm publish"
-
+name: "release"
 on:
   release:
-    types: [created]
-
+    types: [published]
 jobs:
   build:
-    name: "npm publish"
+    name: "release"
     runs-on: ubuntu-latest
     steps:
-      - name: "Checking out repository..."
+      - name: "checkout"
         uses: actions/checkout@master
-      - name: "Publishing to npm..."
+      - name: "publish"
         uses: actions/npm@master
         with:
           args: publish
