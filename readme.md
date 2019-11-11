@@ -14,6 +14,12 @@ Install the package via [npm](https://www.npmjs.com/get-npm):
 npm install vue-frappe
 ```
 
+Or via [yarn](https://yarnpkg.com/en/):
+
+```bash
+yarn add vue-frappe
+```
+
 ## Usage
 
 Import and create a chart in your Vue component:
