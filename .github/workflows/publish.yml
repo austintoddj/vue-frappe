@@ -11,13 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
       - name: Checking out repository
         uses: actions/checkout@v1
       - name: Publishing to npm
-        run: npm publish --access public
+        uses: actions/npm@master
+        with:
+          args: publish
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
