@@ -3,9 +3,13 @@
 </template>
 
 <script>
-    import { Chart } from 'frappe-charts/dist/frappe-charts.min.esm'
+    import { Chart } from 'frappe-charts/dist/frappe-charts.min.esm';
+
+    let updateTimer;
 
     export default {
+        name: 'vue-frappe',
+
         props: {
             id: {
                 required: true,
@@ -38,7 +42,8 @@
             dataPoints: {
                 required: false,
                 type: Object,
-                default: () => {}
+                default: () => {
+                }
             },
 
             countLabel: {
@@ -80,7 +85,9 @@
                 required: false,
                 type: Array,
                 default: () => [
-                    'purple', '#ffa3ef', 'light-blue'
+                    'purple',
+                    '#ffa3ef',
+                    'light-blue'
                 ]
             },
 
@@ -166,7 +173,7 @@
             }
         },
 
-        data () {
+        data() {
             return {
                 chart: null,
                 data: {
@@ -184,26 +191,44 @@
             }
         },
 
-        mounted () {
-            this.startChart()
+        watch: {
+            labels() {
+                this.updateDebounced();
+            },
+
+            dataSets() {
+                this.updateDebounced();
+            },
+
+            yMarkers() {
+                this.updateDebounced();
+            },
+
+            yRegions() {
+                this.updateDebounced();
+            }
+        },
+
+        mounted() {
+            this.createChart()
         },
 
         methods: {
-            startChart () {
-                const baseOptions = {
+            createChart() {
+                let baseOptions = {
                     type: this.type,
                     discreteDomains: this.discreteDomains,
                     colors: this.colors,
                     height: this.height,
                     title: this.title,
                     isNavigable: this.isNavigable
-                }
+                };
 
-                const heatMapOptions = {
+                let heatMapOptions = {
                     data: this.heatmapData
-                }
+                };
 
-                const chartOptions = {
+                let chartOptions = {
                     data: this.data,
                     tooltipOptions: this.tooltipOptions,
                     valuesOverPoints: this.valuesOverPoints,
@@ -212,38 +237,55 @@
                     axisOptions: this.axisOptions,
                     maxLegendPoints: this.maxLegendPoints,
                     maxSlices: this.maxSlices,
-                }
+                };
 
-                const options = Object.assign(
+                let options = Object.assign(
                     baseOptions,
                     (this.type === 'heatmap') ? heatMapOptions : chartOptions
-                )
+                );
 
                 this.chart = new Chart(`#${this.id}`, options)
             },
 
-            export () {
-                this.chart.export()
+            export() {
+                this.chart.export();
             },
 
-            addDataPoint (label, valueFromEachDataset, index) {
-                this.chart.addDataPoint(label, valueFromEachDataset, index)
+            addDataPoint(label, valueFromEachDataset, index) {
+                this.chart.addDataPoint(label, valueFromEachDataset, index);
             },
 
-            removeDataPoint (index) {
-                this.chart.removeDataPoint(index)
+            removeDataPoint(index) {
+                this.chart.removeDataPoint(index);
             },
 
-            updateDataset (datasetValues, index) {
-                this.chart.updateDataset(datasetValues, index)
+            updateDataset(datasetValues, index) {
+                this.chart.updateDataset(datasetValues, index);
             },
 
-            update (data) {
-                this.chart.update(data)
+            updateDebounced() {
+                if (updateTimer) {
+                    window.clearTimeout(updateTimer);
+
+                    updateTimer = null
+                }
+
+                updateTimer = window.setTimeout(() => {
+                    this.update()
+                }, 1)
             },
 
-            unbindWindowEvents () {
-                this.chart.unbindWindowEvents()
+            update() {
+                const data = {
+                    labels: this.labels,
+                    datasets: this.dataSets,
+                    yMarkers: this.yMarkers,
+                    yRegions: this.yRegions
+                }
+            },
+
+            unbindWindowEvents() {
+                this.chart.unbindWindowEvents();
             }
         }
     }
