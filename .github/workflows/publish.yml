@@ -14,8 +14,6 @@ jobs:
       - name: Checking out repository
         uses: actions/checkout@v1
       - name: Publishing to npm
-        uses: actions/npm@master
-        with:
-          args: publish
+        run: npm publish
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
