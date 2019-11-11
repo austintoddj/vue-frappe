@@ -4,9 +4,9 @@
 
 ## Introduction
 
-This package provides a Vue wrapper component for the popular [Frappe Charts](https://frappe.io/charts) library. 
+This package is a Vue component wrapper for the popular [Frappe Charts](https://frappe.io/charts) library. 
 
-## Usage
+## Installation
 
 Install the package via [npm](https://www.npmjs.com/get-npm):
 
@@ -14,7 +14,9 @@ Install the package via [npm](https://www.npmjs.com/get-npm):
 npm install vue-frappe
 ```
 
-Import and use the component:
+## Usage
+
+Import and create a chart in your Vue component:
 
 ```es6
 <template>
@@ -26,37 +28,37 @@ Import and use the component:
             '12am-3am', '3am-6am', '6am-9am', '9am-12pm',
             '12pm-3pm', '3pm-6pm', '6pm-9pm', '9pm-12am'
         ]"
-        :height="250"
+        :height="300"
         :colors="['#03a87c', '#ffa3ef']"
         :dataSets="this.data">
     </vue-frappe>
 </template>
 
 <script>
-import { VueFrappe } from 'vue-frappe'
-
-export default {
-    components: {
-        VueFrappe
-    }
-
-    data() {
-        return {
-            data: [
-                {
-                    name: 'Bar Chart', 
-                    chartType: 'bar',
-                    values: [25, 40, 30, 35, 8, 52, 17, -4]
-                },
-                {
-                    name: 'Line Chart',
-                    chartType: 'line',
-                    values: [25, 50, -10, 15, 18, 32, 27, 14]
-                }
-            ]
-        };
-    }
-};
+    import VueFrappe from 'vue-frappe'
+    
+    export default {
+        components: {
+            VueFrappe
+        }
+    
+        data() {
+            return {
+                data: [
+                    {
+                        name: 'Bar Chart', 
+                        chartType: 'bar',
+                        values: [25, 40, 30, 35, 8, 52, 17, -4]
+                    },
+                    {
+                        name: 'Line Chart',
+                        chartType: 'line',
+                        values: [25, 50, -10, 15, 18, 32, 27, 14]
+                    }
+                ]
+            };
+        }
+    };
 </script>
 ```
 

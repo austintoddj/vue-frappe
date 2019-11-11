@@ -1,5 +1,5 @@
-import { Chart } from './components/Charts'
+import VueFrappe from './VueFrappe'
 
-export default {
-    VueFrappe: Chart
-}
+export default VueFrappe
+
+export { VueFrappe }

@@ -3,11 +3,13 @@
 </template>
 
 <script>
-    import {Chart} from 'frappe-charts/dist/frappe-charts.min.esm';
+    import { Chart } from 'frappe-charts/dist/frappe-charts.min.esm';
 
     let updateTimer;
 
     export default {
+        name: 'vue-frappe',
+
         props: {
             id: {
                 required: true,
