@@ -1,4 +1,4 @@
-## vue-frappe
+# vue-frappe
 
 [![npm version](https://badge.fury.io/js/vue-frappe.svg)](https://badge.fury.io/js/vue-frappe) [![GitHub license](https://img.shields.io/github/license/austintoddj/vue-frappe)](https://github.com/austintoddj/vue-frappe/blob/master/license)
 
@@ -14,7 +14,7 @@ Install the package via [npm](https://www.npmjs.com/get-npm):
 npm install vue-frappe
 ```
 
-Or via [yarn](https://yarnpkg.com/en/):
+Or via [yarn](https://yarnpkg.com):
 
 ```bash
 yarn add vue-frappe
@@ -70,7 +70,7 @@ Import and create a chart in your Vue component:
 
 ## License
 
-This package is open-sourced software licensed under the [MIT license](https://github.com/austintoddj/vue-frappe/blob/master/license).
+This package is open-sourced software licensed under the [MIT license](license).
 
 ## Credits
 
