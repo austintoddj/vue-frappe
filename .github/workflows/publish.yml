@@ -6,8 +6,8 @@ on:
       - 'v*'
 
 permissions:
-  contents: write
-  id-token: write
+  contents: write # GitHub Release
+  id-token: write # npm Trusted Publishing (OIDC)
 
 jobs:
   publish:
@@ -21,9 +21,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
+          node-version: 24
           registry-url: https://registry.npmjs.org
+          # Release builds should not use a stale cache.
+          cache: npm
+
+      # Trusted Publishing requires npm >= 11.5.1 (OIDC exchange).
+      - name: Ensure npm supports trusted publishing
+        run: npm install -g npm@latest && npm --version
 
       - name: Install dependencies
         run: npm ci
@@ -36,11 +41,9 @@ jobs:
           npm run build
           npm run size
 
+      # No NODE_AUTH_TOKEN — publish authenticates via OIDC Trusted Publisher.
       - name: Publish to npm
         run: npm publish --access public
-        env:
-          # Classic automation token. Optional if you use npm Trusted Publishing (OIDC).
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
