@@ -12,49 +12,43 @@ Pull requests are welcome and preferred when you already have a fix. Keep each p
 
 ## Which branch?
 
-| Branch    | Role                                                            |
-| --------- | --------------------------------------------------------------- |
-| `develop` | Day-to-day integration. Open PRs here for features and fixes.   |
-| `main`    | Stable / release line. Only merge from `develop` when shipping. |
+| Branch | Role                                                                  |
+| ------ | --------------------------------------------------------------------- |
+| `main` | Default branch. Open PRs here (or from short-lived feature branches). |
 
-Default branch on GitHub is **`main`**. CI runs on pushes and PRs to both `main` and `develop`.
-
-Suggested flow:
+Suggested release flow:
 
 ```text
-feature/*  →  develop  →  main  →  tag vX.Y.Z  →  npm + GitHub Release
+feature/*  →  main  →  tag vX.Y.Z  →  npm + GitHub Release
 ```
-
-Open pull requests against **`develop`** unless a maintainer asks for another branch.
 
 ## Local development
 
 Requirements:
 
 - Node.js **20+**
-- [pnpm](https://pnpm.io) 10+
+- npm (ships with Node)
 
 ```bash
-pnpm install
-pnpm preflight
+npm install
+npm run preflight
 ```
 
-`pnpm preflight` runs: install (if needed) → lint → format → typecheck → unit tests → build → size.
+`npm run preflight` runs: install (if needed) → lint → format → typecheck → unit tests → build → size.
 
 ### Scripts
 
-| Command              | Description                                    |
-| -------------------- | ---------------------------------------------- |
-| `pnpm preflight`     | Full pre-commit checklist (`bin/preflight.sh`) |
-| `pnpm test`          | Run unit tests once                            |
-| `pnpm test:unit`     | Alias for `pnpm test`                          |
-| `pnpm test:watch`    | Vitest watch mode                              |
-| `pnpm test:coverage` | Coverage + thresholds                          |
-| `pnpm typecheck`     | `vue-tsc`                                      |
-| `pnpm lint`          | ESLint                                         |
-| `pnpm format`        | Prettier write                                 |
-| `pnpm build`         | Typecheck + library build                      |
-| `pnpm size`          | Bundle size budget                             |
+| Command                          | Description                                    |
+| -------------------------------- | ---------------------------------------------- |
+| `npm run preflight`              | Full pre-commit checklist (`bin/preflight.sh`) |
+| `npm test` / `npm run test:unit` | Run unit tests once                            |
+| `npm run test:watch`             | Vitest watch mode                              |
+| `npm run test:coverage`          | Coverage + thresholds                          |
+| `npm run typecheck`              | `vue-tsc`                                      |
+| `npm run lint`                   | ESLint                                         |
+| `npm run format`                 | Prettier write                                 |
+| `npm run build`                  | Typecheck + library build                      |
+| `npm run size`                   | Bundle size budget                             |
 
 ### Project layout
 
@@ -73,7 +67,7 @@ bin/preflight.sh             # pre-commit quality checklist
 
 Before submitting a pull request, please:
 
-1. Run **`pnpm preflight`** and fix any failures.
+1. Run **`npm run preflight`** and fix any failures.
 2. Keep the public API small — new props should map cleanly to Frappe options or Vue ergonomics.
 3. Prefer tests for behavior that talks to Frappe (`update`, lifecycle, events). Mock `frappe-charts` so tests stay unit-level.
 4. Export useful types from `src/index.ts` when you extend the public surface.
@@ -90,8 +84,8 @@ Prefer clear, imperative subjects:
 
 ## Releases
 
-1. Land work on `develop`, then merge `develop` → `main`.
-2. Bump `package.json` `version` (e.g. `2.0.0`) in the release commit.
+1. Merge the release branch into `main` when ready.
+2. Ensure `package.json` `version` matches the tag (e.g. `2.0.0`).
 3. Tag **`vX.Y.Z`** on `main` and push the tag:
 
    ```bash

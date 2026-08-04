@@ -9,9 +9,9 @@
 **Vue 3** component wrapper for [Frappe Charts](https://frappe.io/charts) — typed, tested, tree-shakeable, and built for modern tooling.
 
 ```bash
-pnpm add vue-frappe frappe-charts
-# or: npm install vue-frappe frappe-charts
+npm install vue-frappe frappe-charts
 # or: yarn add vue-frappe frappe-charts
+# or: pnpm add vue-frappe frappe-charts
 ```
 
 ---
@@ -209,19 +209,19 @@ const dataPoints: Record<string, number> = {
 
 ## Tooling
 
-| Script               | Purpose                                        |
-| -------------------- | ---------------------------------------------- |
-| `pnpm preflight`     | Full pre-commit checklist (`bin/preflight.sh`) |
-| `pnpm build`         | Typecheck + Vite library build                 |
-| `pnpm test`          | Vitest (happy-dom)                             |
-| `pnpm test:coverage` | Coverage with thresholds                       |
-| `pnpm typecheck`     | `vue-tsc --noEmit`                             |
-| `pnpm lint`          | ESLint flat config                             |
-| `pnpm format`        | Prettier                                       |
-| `pnpm size`          | `size-limit` budget on the ESM bundle          |
+| Script                  | Purpose                                        |
+| ----------------------- | ---------------------------------------------- |
+| `npm run preflight`     | Full pre-commit checklist (`bin/preflight.sh`) |
+| `npm run build`         | Typecheck + Vite library build                 |
+| `npm test`              | Vitest (happy-dom)                             |
+| `npm run test:coverage` | Coverage with thresholds                       |
+| `npm run typecheck`     | `vue-tsc --noEmit`                             |
+| `npm run lint`          | ESLint flat config                             |
+| `npm run format`        | Prettier                                       |
+| `npm run size`          | `size-limit` budget on the ESM bundle          |
 
 Pre-commit hooks run `lint-staged` (ESLint + Prettier) via `simple-git-hooks`.  
-Before a PR or release, run **`pnpm preflight`**.
+Before a PR or release, run **`npm run preflight`**.
 
 ---
 
@@ -241,8 +241,8 @@ Release notes live on the [GitHub Releases](https://github.com/austintoddj/vue-f
 Thank you for considering contributing to vue-frappe! The [contribution guide can be found here](.github/CONTRIBUTING.md).
 
 ```bash
-pnpm install
-pnpm preflight
+npm install
+npm run preflight
 ```
 
 ---

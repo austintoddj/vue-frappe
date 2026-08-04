@@ -16,9 +16,9 @@ vue-frappe follows [Semantic Versioning](https://semver.org) (`MAJOR.MINOR.PATCH
 ### 1. Install peers and the new package
 
 ```bash
-pnpm add vue-frappe@^2 frappe-charts@^1.6 vue@^3
-# or: npm install vue-frappe@^2 frappe-charts@^1.6 vue@^3
+npm install vue-frappe@^2 frappe-charts@^1.6 vue@^3
 # or: yarn add vue-frappe@^2 frappe-charts@^1.6 vue@^3
+# or: pnpm add vue-frappe@^2 frappe-charts@^1.6 vue@^3
 ```
 
 `vue` and `frappe-charts` are **peer dependencies** — they are no longer bundled for you.
@@ -67,7 +67,7 @@ createApp(App).use(VueFrappePlugin).mount('#app')
 
 ```bash
 # in this repo, or run your app’s typecheck / smoke render
-pnpm preflight
+npm run preflight
 ```
 
 Release notes for each tag are on the [GitHub Releases](https://github.com/austintoddj/vue-frappe/releases) page.

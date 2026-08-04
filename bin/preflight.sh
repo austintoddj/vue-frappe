@@ -4,7 +4,7 @@
 #
 # Usage:
 #   bin/preflight.sh
-#   pnpm preflight
+#   npm run preflight
 #
 set -euo pipefail
 
@@ -17,30 +17,30 @@ step() {
 }
 
 # Dependency upgrades are intentional (Dependabot / manual), not part of preflight.
-step "pnpm install (or skip if node_modules present)"
+step "npm ci (or skip if node_modules present)"
 if [[ ! -d node_modules ]]; then
-  pnpm install --frozen-lockfile
+  npm ci
 else
   echo "node_modules present — skipping install"
 fi
 
-step "pnpm run lint"
-pnpm run lint
+step "npm run lint"
+npm run lint
 
-step "pnpm run format"
-pnpm run format
+step "npm run format"
+npm run format
 
-step "pnpm run typecheck"
-pnpm run typecheck
+step "npm run typecheck"
+npm run typecheck
 
-step "pnpm run test:unit"
-pnpm run test:unit
+step "npm run test:unit"
+npm run test:unit
 
-step "pnpm run build"
-pnpm run build
+step "npm run build"
+npm run build
 
-step "pnpm run size"
-pnpm run size
+step "npm run size"
+npm run size
 
 echo ""
 echo "==> Preflight complete. Review the diff, then commit."
