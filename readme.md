@@ -1,10 +1,9 @@
 # vue-frappe
 
 [![npm version](https://img.shields.io/npm/v/vue-frappe.svg)](https://www.npmjs.com/package/vue-frappe)
+[![npm downloads](https://img.shields.io/npm/dt/vue-frappe.svg)](https://www.npmjs.com/package/vue-frappe)
 [![CI](https://github.com/austintoddj/vue-frappe/actions/workflows/ci.yml/badge.svg)](https://github.com/austintoddj/vue-frappe/actions/workflows/ci.yml)
 [![license](https://img.shields.io/npm/l/vue-frappe.svg)](./license)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/vue-frappe)](https://bundlephobia.com/package/vue-frappe)
-[![TypeScript](https://img.shields.io/badge/TypeScript-ready-3178C6?logo=typescript&logoColor=white)](./src/types)
 
 **Vue 3** component wrapper for [Frappe Charts](https://frappe.io/charts) — typed, tested, tree-shakeable, and built for modern tooling.
 
