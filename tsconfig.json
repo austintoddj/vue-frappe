@@ -21,7 +21,6 @@
     "sourceMap": true,
     "jsx": "preserve",
     "types": ["vite/client", "node"],
-    "baseUrl": ".",
     "paths": {
       "vue-frappe": ["./src/index.ts"]
     }

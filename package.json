@@ -1,7 +1,7 @@
 {
   "name": "vue-frappe",
   "version": "2.0.0",
-  "description": "Vue 3 component wrapper for Frappe Charts \u2014 typed, tested, and tree-shakeable",
+  "description": "Vue 3 component wrapper for Frappe Charts — typed, tested, and tree-shakeable",
   "type": "module",
   "keywords": [
     "vue",
@@ -86,7 +86,7 @@
     "prettier": "^3.5.3",
     "simple-git-hooks": "^2.13.0",
     "size-limit": "^11.2.0",
-    "typescript": "^5.8.3",
+    "typescript": "~6.0.3",
     "typescript-eslint": "^8.34.0",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.5.4",
