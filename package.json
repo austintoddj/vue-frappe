@@ -81,7 +81,7 @@
     "eslint-plugin-vue": "^10.2.0",
     "frappe-charts": "^1.6.2",
     "globals": "^16.2.0",
-    "happy-dom": "^17.6.3",
+    "happy-dom": "^20.11.1",
     "lint-staged": "^16.1.0",
     "prettier": "^3.5.3",
     "simple-git-hooks": "^2.13.0",
