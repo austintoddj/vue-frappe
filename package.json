@@ -1,7 +1,7 @@
 {
   "name": "vue-frappe",
   "version": "2.0.0",
-  "description": "Vue 3 component wrapper for Frappe Charts — typed, tested, and tree-shakeable",
+  "description": "Vue 3 component wrapper for Frappe Charts \u2014 typed, tested, and tree-shakeable",
   "type": "module",
   "keywords": [
     "vue",
@@ -74,7 +74,7 @@
     "@size-limit/file": "^11.2.0",
     "@types/node": "^22.15.30",
     "@vitejs/plugin-vue": "^5.2.4",
-    "@vitest/coverage-v8": "^3.2.3",
+    "@vitest/coverage-v8": "^4.1.10",
     "@vue/test-utils": "^2.4.6",
     "eslint": "^9.28.0",
     "eslint-config-prettier": "^10.1.5",
