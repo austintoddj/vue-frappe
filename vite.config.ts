@@ -9,8 +9,9 @@ export default defineConfig({
     dts({
       include: ['src/**/*.ts', 'src/**/*.vue', 'src/types/frappe-charts.d.ts'],
       exclude: ['src/shims-vue.d.ts'],
-      outDir: 'dist',
-      rollupTypes: true,
+      outDirs: 'dist',
+      bundleTypes: true,
+      processor: 'vue',
       tsconfigPath: './tsconfig.build.json',
       insertTypesEntry: true,
       copyDtsFiles: false,
@@ -18,7 +19,7 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: resolve(import.meta.dirname, 'src/index.ts'),
       name: 'VueFrappe',
       formats: ['es', 'cjs'],
       fileName: (format) => (format === 'es' ? 'vue-frappe.js' : 'vue-frappe.cjs'),

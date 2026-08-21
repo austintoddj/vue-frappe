@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      'vue-frappe': resolve(__dirname, 'src/index.ts'),
+      'vue-frappe': resolve(import.meta.dirname, 'src/index.ts'),
     },
   },
   test: {
