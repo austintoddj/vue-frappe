@@ -1,16 +1,16 @@
-import { vi } from 'vitest'
-import type { ChartData, ChartOptions } from '../../src/types'
+import { vi, type Mock } from 'vitest'
+import type { ChartData, ChartInstance, ChartOptions } from '../../src/types'
 
 export type MockChartInstance = {
   options: ChartOptions
   parent: HTMLElement
   data: ChartData
-  update: ReturnType<typeof vi.fn>
-  addDataPoint: ReturnType<typeof vi.fn>
-  removeDataPoint: ReturnType<typeof vi.fn>
-  updateDataset: ReturnType<typeof vi.fn>
-  export: ReturnType<typeof vi.fn>
-  destroy: ReturnType<typeof vi.fn>
+  update: Mock<ChartInstance['update']>
+  addDataPoint: Mock<ChartInstance['addDataPoint']>
+  removeDataPoint: Mock<ChartInstance['removeDataPoint']>
+  updateDataset: Mock<ChartInstance['updateDataset']>
+  export: Mock<ChartInstance['export']>
+  destroy: Mock<ChartInstance['destroy']>
 }
 
 export const chartInstances: MockChartInstance[] = []
@@ -19,14 +19,14 @@ export class Chart {
   options: ChartOptions
   parent: HTMLElement
   data: ChartData
-  update = vi.fn((data: ChartData) => {
+  update: Mock<ChartInstance['update']> = vi.fn((data: ChartData) => {
     this.data = data
   })
-  addDataPoint = vi.fn()
-  removeDataPoint = vi.fn()
-  updateDataset = vi.fn()
-  export = vi.fn()
-  destroy = vi.fn()
+  addDataPoint: Mock<ChartInstance['addDataPoint']> = vi.fn()
+  removeDataPoint: Mock<ChartInstance['removeDataPoint']> = vi.fn()
+  updateDataset: Mock<ChartInstance['updateDataset']> = vi.fn()
+  export: Mock<ChartInstance['export']> = vi.fn()
+  destroy: Mock<ChartInstance['destroy']> = vi.fn()
 
   constructor(parent: string | HTMLElement, options: ChartOptions) {
     this.parent =
