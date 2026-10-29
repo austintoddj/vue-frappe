@@ -56,3 +56,4 @@ jobs:
           name: coverage
           path: coverage/
           if-no-files-found: ignore
+          retention-days: 3
