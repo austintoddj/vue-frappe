@@ -38,7 +38,14 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: npm ci
       - run: npm run build
-      - run: npm stage publish
+      - name: Stage the release
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [[ "$version" == *-* ]]; then
+            npm stage publish --tag ci
+          else
+            npm stage publish
+          fi
 
   release:
     needs: stage
