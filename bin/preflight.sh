@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Pre-commit checklist: lint/format, typecheck, unit tests, build, and size budget.
+# Pre-commit checklist: format, lint, typecheck, unit tests, build, and size budget.
 #
 # Usage:
 #   bin/preflight.sh
@@ -24,11 +24,11 @@ else
   echo "node_modules present — skipping install"
 fi
 
-step "npm run lint"
-npm run lint
-
 step "npm run format"
 npm run format
+
+step "npm run lint"
+npm run lint
 
 step "npm run typecheck"
 npm run typecheck
