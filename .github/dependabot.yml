@@ -1,51 +1,47 @@
 version: 2
 updates:
-  - package-ecosystem: 'github-actions'
-    directory: '/'
+  - package-ecosystem: npm
+    directory: /
     schedule:
-      interval: 'weekly'
-      day: 'monday'
+      interval: weekly
+      day: monday
       time: '06:00'
-      timezone: 'America/Chicago'
+      timezone: America/Chicago
     cooldown:
       default-days: 5
     groups:
-      weekly-patch-minor:
-        applies-to: 'version-updates'
+      minor-and-patch:
         patterns:
           - '*'
         update-types:
-          - 'minor'
-          - 'patch'
-    reviewers:
-      - 'austintoddj'
+          - minor
+          - patch
+      major:
+        patterns:
+          - '*'
+        update-types:
+          - major
     labels:
-      - 'github-actions'
-      - 'dependencies'
+      - npm
+      - dependencies
     commit-message:
-      prefix: 'chore(deps)'
+      prefix: chore(deps)
 
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: 'weekly'
-      day: 'monday'
+      interval: weekly
+      day: monday
       time: '06:00'
-      timezone: 'America/Chicago'
+      timezone: America/Chicago
     cooldown:
       default-days: 5
     groups:
-      weekly-patch-minor:
-        applies-to: 'version-updates'
+      actions:
         patterns:
           - '*'
-        update-types:
-          - 'minor'
-          - 'patch'
-    reviewers:
-      - 'austintoddj'
     labels:
-      - 'npm'
-      - 'dependencies'
+      - github-actions
+      - dependencies
     commit-message:
-      prefix: 'chore(deps)'
+      prefix: chore(deps)

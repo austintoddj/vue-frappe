@@ -1,59 +1,36 @@
-name: CI
-
+name: ci
 on:
+  pull_request:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
 
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  quality:
-    name: Lint, typecheck, test, build
+  ci:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 15
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version: 22
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
           cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Format check
-        run: npm run format:check
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Test
-        run: npm run test:coverage
-
-      - name: Build
-        run: npm run build
-
-      - name: Size budget
-        run: npm run size
-
-      - name: Upload coverage
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: coverage
-          path: coverage/
-          if-no-files-found: ignore
-          retention-days: 3
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - run: npm run size
+      - name: Tests on the lowest supported peers
+        # Floors of peerDependencies. Current @vue/test-utils calls a Vue 3.5 API, so this run uses 2.4.6.
+        run: |
+          npm install --no-save vue@3.4.0 frappe-charts@1.6.0 @vue/test-utils@2.4.6
+          npm test

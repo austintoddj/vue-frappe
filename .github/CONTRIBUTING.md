@@ -19,36 +19,37 @@ Pull requests are welcome and preferred when you already have a fix. Keep each p
 Suggested release flow:
 
 ```text
-feature/*  →  main  →  tag vX.Y.Z  →  npm + GitHub Release
+feature/*  →  main  →  tag vX.Y.Z  →  staged npm release (approve with 2FA) + GitHub Release
 ```
 
 ## Local development
 
 Requirements:
 
-- Node.js **20+**
-- npm (ships with Node)
+- Node.js **20+** to consume the package. Maintainers and CI use the Node line in `.nvmrc` (26).
+- npm (ships with Node). Node 26 ships npm 11.20.0, which is new enough for `npm stage publish` (11.15.0 or later).
 
 ```bash
 npm install
 npm run preflight
 ```
 
-`npm run preflight` runs: install (if needed) → lint → format → typecheck → unit tests → build → size.
+`npm run preflight` runs: install (if needed) → format → lint → typecheck → unit tests → build → size.
 
 ### Scripts
 
-| Command                          | Description                                    |
-| -------------------------------- | ---------------------------------------------- |
-| `npm run preflight`              | Full pre-commit checklist (`bin/preflight.sh`) |
-| `npm test` / `npm run test:unit` | Run unit tests once                            |
-| `npm run test:watch`             | Vitest watch mode                              |
-| `npm run test:coverage`          | Coverage + thresholds                          |
-| `npm run typecheck`              | `vue-tsc`                                      |
-| `npm run lint`                   | ESLint                                         |
-| `npm run format`                 | Prettier write                                 |
-| `npm run build`                  | Typecheck + library build                      |
-| `npm run size`                   | Bundle size budget                             |
+| Command                          | Description                                          |
+| -------------------------------- | ---------------------------------------------------- |
+| `npm run check`                  | What CI runs before the build: typecheck, lint, test |
+| `npm run preflight`              | Full pre-commit checklist (`bin/preflight.sh`)       |
+| `npm test` / `npm run test:unit` | Run unit tests once                                  |
+| `npm run test:watch`             | Vitest watch mode                                    |
+| `npm run test:coverage`          | Coverage, local only. CI does not upload it.         |
+| `npm run typecheck`              | `vue-tsc`                                            |
+| `npm run lint`                   | ESLint, then the Prettier check                      |
+| `npm run format`                 | Prettier write                                       |
+| `npm run build`                  | Typecheck + library build                            |
+| `npm run size`                   | Bundle size budget                                   |
 
 ### Project layout
 
@@ -84,15 +85,17 @@ Prefer clear, imperative subjects:
 
 ## Releases
 
-1. Merge the release branch into `main` when ready.
-2. Ensure `package.json` `version` matches the tag (e.g. `2.0.0`).
-3. Tag **`vX.Y.Z`** on `main` and push the tag:
+1. Merge a pull request that sets `version` in `package.json`.
+2. Tag that `main` commit only after its `ci` run is green:
 
    ```bash
-   git tag -a vX.Y.Z -m "vX.Y.Z"
-   git push origin vX.Y.Z
+   gh run list -R austintoddj/vue-frappe -b main -w ci -L 1
+   git fetch origin && git tag -a vX.Y.Z -m vX.Y.Z origin/main && git push origin vX.Y.Z
    ```
 
-4. The **Publish** workflow verifies the package, publishes to npm, and creates a GitHub Release (auto-generated notes; edit the release body if you want a hand-written summary).
+3. `publish.yml` checks that the tag is on `main`, matches `package.json`, and that `ci` passed. It builds, stages the version on npm, and creates the GitHub Release.
+4. Nothing installs until you approve it at [npmjs.com](https://www.npmjs.com) or with `npm stage approve <id>`, using 2FA.
+
+A bad release is fixed with the next patch version. Also run `npm deprecate vue-frappe@X.Y.Z "<reason>"`. Never move or delete a tag.
 
 Breaking upgrades for consumers are documented in [UPGRADE.md](UPGRADE.md).

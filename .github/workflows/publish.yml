@@ -1,53 +1,54 @@
-name: Publish
-
+name: publish
 on:
   push:
-    tags:
-      - 'v*'
+    tags: ['v*']
 
-permissions:
-  contents: write # GitHub Release
-  id-token: write # npm Trusted Publishing (OIDC)
+permissions: {}
 
 jobs:
-  publish:
-    name: Publish to npm + GitHub Release
+  stage:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      checks: read
+      id-token: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version: 24
-          registry-url: https://registry.npmjs.org
-          # Release builds should not use a stale cache.
-          cache: npm
-
-      # Trusted Publishing requires npm >= 11.5.1 (OIDC exchange).
-      - name: Ensure npm supports trusted publishing
-        run: npm install -g npm@latest && npm --version
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Verify
-        run: |
-          npm run lint
-          npm run typecheck
-          npm run test
-          npm run build
-          npm run size
-
-      # No NODE_AUTH_TOKEN — publish authenticates via OIDC Trusted Publisher.
-      - name: Publish to npm
-        run: npm publish --access public
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v3
-        with:
-          generate_release_notes: true
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Tag is on main, matches package.json, and passed ci
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main \
+            || { echo "::error::$TAG is not on main."; exit 1; }
+          version="v$(node -p "require('./package.json').version")"
+          [ "$version" = "$TAG" ] \
+            || { echo "::error::package.json is $version but the tag is $TAG."; exit 1; }
+          ci=$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/check-runs?check_name=ci" \
+            --jq '.check_runs[0].conclusion // "not finished"')
+          [ "$ci" = "success" ] \
+            || { echo "::error::ci on this commit is $ci. Rerun this workflow once it is green."; exit 1; }
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run build
+      - run: npm stage publish
+
+  release:
+    needs: stage
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --verify-tag --generate-notes
