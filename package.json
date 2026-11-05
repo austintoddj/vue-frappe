@@ -1,6 +1,6 @@
 {
   "name": "vue-frappe",
-  "version": "2.0.1-ci.1",
+  "version": "2.0.1",
   "description": "Vue 3 component wrapper for Frappe Charts — typed, tested, and tree-shakeable",
   "type": "module",
   "keywords": [
