@@ -115,5 +115,8 @@
       "path": "dist/vue-frappe.js",
       "limit": "8 kB"
     }
-  ]
+  ],
+  "overrides": {
+    "minimatch@>=7": "11.0.5"
+  }
 }
