@@ -210,7 +210,8 @@ const dataPoints: Record<string, number> = {
 
 | Script                  | Purpose                                        |
 | ----------------------- | ---------------------------------------------- |
-| `npm run preflight`     | Full pre-commit checklist (`bin/preflight.sh`) |
+| `npm run ci`            | CI checks: typecheck, lint, test, build, size |
+| `npm run preflight`     | Install when needed, then `npm run ci`        |
 | `npm run build`         | Typecheck + Vite library build                 |
 | `npm test`              | Vitest (happy-dom)                             |
 | `npm run test:coverage` | Coverage with thresholds                       |
@@ -220,7 +221,7 @@ const dataPoints: Record<string, number> = {
 | `npm run size`          | `size-limit` budget on the ESM bundle          |
 
 Pre-commit hooks run `lint-staged` (ESLint + Prettier) via `simple-git-hooks`.  
-Before a PR or release, run **`npm run preflight`**.
+Before a PR or release, run **`npm run preflight`**. It checks formatting and does not rewrite files. `npm run format` writes Prettier changes. GitHub also reinstalls the lowest supported peers and runs the tests again.
 
 ---
 

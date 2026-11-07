@@ -24,13 +24,4 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npm run typecheck
-      - run: npm run lint
-      - run: npm test
-      - run: npm run build
-      - run: npm run size
-      - name: Tests on the lowest supported peers
-        # Floors of peerDependencies. Current @vue/test-utils calls a Vue 3.5 API, so this run uses 2.4.6.
-        run: |
-          npm install --no-save vue@3.4.0 frappe-charts@1.6.0 @vue/test-utils@2.4.6
-          npm test
+      - run: npm run ci
