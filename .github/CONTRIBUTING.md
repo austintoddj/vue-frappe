@@ -34,22 +34,23 @@ npm install
 npm run preflight
 ```
 
-`npm run preflight` runs: install (if needed) → format → lint → typecheck → unit tests → build → size.
+`npm run preflight` installs when `node_modules` is missing, then runs typecheck, lint, unit tests, the build, and the size budget. `npm run format` writes Prettier changes. GitHub also runs the tests against the lowest supported peers.
 
 ### Scripts
 
-| Command                          | Description                                          |
-| -------------------------------- | ---------------------------------------------------- |
-| `npm run check`                  | What CI runs before the build: typecheck, lint, test |
-| `npm run preflight`              | Full pre-commit checklist (`bin/preflight.sh`)       |
-| `npm test` / `npm run test:unit` | Run unit tests once                                  |
-| `npm run test:watch`             | Vitest watch mode                                    |
-| `npm run test:coverage`          | Coverage, local only. CI does not upload it.         |
-| `npm run typecheck`              | `vue-tsc`                                            |
-| `npm run lint`                   | ESLint, then the Prettier check                      |
-| `npm run format`                 | Prettier write                                       |
-| `npm run build`                  | Typecheck + library build                            |
-| `npm run size`                   | Bundle size budget                                   |
+| Command                          | Description                                       |
+| -------------------------------- | ------------------------------------------------- |
+| `npm run check`                  | Short loop: typecheck, lint, and test             |
+| `npm run ci`                     | CI checks: typecheck, lint, test, build, and size |
+| `npm run preflight`              | Install when needed, then `npm run ci`            |
+| `npm test` / `npm run test:unit` | Run unit tests once                               |
+| `npm run test:watch`             | Vitest watch mode                                 |
+| `npm run test:coverage`          | Coverage, local only. CI does not upload it.      |
+| `npm run typecheck`              | `vue-tsc`                                         |
+| `npm run lint`                   | ESLint, then the Prettier check                   |
+| `npm run format`                 | Prettier write                                    |
+| `npm run build`                  | Typecheck + library build                         |
+| `npm run size`                   | Bundle size budget                                |
 
 ### Project layout
 
@@ -61,7 +62,8 @@ src/
   plugin.ts                  # app.use(VueFrappePlugin)
   index.ts                   # public API
 tests/                       # Vitest specs (mock frappe-charts)
-bin/preflight.sh             # pre-commit quality checklist
+bin/ci.sh                    # checks GitHub runs after install
+bin/preflight.sh             # install when needed, then bin/ci.sh
 ```
 
 ## Pull requests

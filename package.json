@@ -62,6 +62,7 @@
     "format:check": "prettier --check .",
     "check": "npm run typecheck && npm run lint && npm test",
     "size": "size-limit",
+    "ci": "bash bin/ci.sh",
     "preflight": "bash bin/preflight.sh",
     "prepublishOnly": "npm run build && npm run test && npm run size",
     "prepare": "simple-git-hooks"
